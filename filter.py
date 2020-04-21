@@ -59,13 +59,23 @@ class Filter:
 
         # Docs ---
         docs_only = self.filters['DocumentariesOnly'].lower().strip()
+        genre_column = self.imdb_columns['Genres']
 
         if docs_only == 'yes':
-            genre_column = self.imdb_columns['Genres']
-            doc_string = self.imdb_filter_strings['Documentary']
+            doc_string = self.imdb_filter_strings['DocumentaryString']
 
-            print('Documentaries only')
+            print('{} only'.format(doc_string))
             filtered[:] = [mv for mv in self.data if doc_string in mv[genre_column]]
+            self.data = filtered
+
+        # Animated ---
+        anim_only = self.filters['AnimationOnly'].lower().strip()
+
+        if anim_only == 'yes':
+            anim_string = self.imdb_filter_strings['AnimationString']
+
+            print('{} only'.format(anim_string))
+            filtered[:] = [mv for mv in self.data if anim_string in mv[genre_column]]
             self.data = filtered
 
         # TV exclusion ---
