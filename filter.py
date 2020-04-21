@@ -3,6 +3,8 @@ import random
 import webbrowser
 import configparser
 
+from os import path
+
 
 class Filter:
     def __init__(self, config_file, data_filename, encoding, imdb_id, browser_url):
@@ -17,7 +19,7 @@ class Filter:
 
     def _parse_config(self, config_file):
         config = configparser.ConfigParser()
-        config.read(config_file)
+        config.read(path.join(path.dirname(__file__), config_file))
         self.filters = config['FILTERS']
         self.imdb_columns = config['IMDB_COLUMNS']
         self.imdb_filter_strings = config['IMDB_FILTER_STRINGS']
