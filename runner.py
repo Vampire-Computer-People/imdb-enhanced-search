@@ -5,7 +5,7 @@ from os import path
 
 CONFIG_FILE = 'config.ini'
 config = configparser.ConfigParser()
-config.read(path.join(path.dirname(__file__), CONFIG_FILE))
+config.read(CONFIG_FILE)
 
 SYS_DATA = config['SYSTEM']
 DATA_FILE_NAME = SYS_DATA['DataFilename']
