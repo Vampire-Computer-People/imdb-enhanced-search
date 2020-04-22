@@ -2,3 +2,6 @@
 *.csv
 *.tsv
 *__pycache__*
+build*
+dist*
+runner.spec*
