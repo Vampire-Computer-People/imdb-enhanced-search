@@ -3,15 +3,18 @@ import filter
 import configparser
 from os import path
 
+# Setup config file
 CONFIG_FILE = 'config.ini'
 config = configparser.ConfigParser()
 config.read(CONFIG_FILE)
 
+# Setup values
 SYS_DATA = config['SYSTEM']
 DATA_FILE_NAME = SYS_DATA['DataFilename']
 ENCODING = SYS_DATA['Encoding']
 IMDB_ID = SYS_DATA['IMDBID']
 
+# On first run or when user requests a data rebuild, build the data from IMDB
 if not path.isfile(DATA_FILE_NAME) or SYS_DATA['Rebuild'] == 'yes':
     build = build.Build(
         ENCODING,
@@ -36,6 +39,7 @@ if not path.isfile(DATA_FILE_NAME) or SYS_DATA['Rebuild'] == 'yes':
     build.write_file(merged, DATA_FILE_NAME)
 
 
+# Setup filter
 filter = filter.Filter(
     CONFIG_FILE,
     DATA_FILE_NAME,
@@ -44,8 +48,10 @@ filter = filter.Filter(
     SYS_DATA['BaseBrowserURL']
 )
 
+# Run filter
 filter.run_filters()
 
+# Run app, pick a film for the user on request
 while True:
     text = input('press ENTER for a movie...')
     if text == '':

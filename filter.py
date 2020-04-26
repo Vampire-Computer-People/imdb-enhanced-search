@@ -36,6 +36,7 @@ class Filter:
         min_rating = self.filters['MinimumRating']
 
         print('Rated at least {}'.format(min_rating))
+        # Check that average column exists before checking value
         filtered[:] = [mv for mv in self.data if (avg_column in mv and float(mv[avg_column]) >= float(min_rating))]
         self.data = filtered
 
@@ -104,6 +105,7 @@ class Filter:
 
         print('Picking random film...')
         random_movie = random.choice(self.data)
+        self.data.remove(random_movie)
         imdb_id = random_movie[self.imdb_id]
         title = random_movie[title]
         url = '{}/{}'.format(self.browser_url, imdb_id)

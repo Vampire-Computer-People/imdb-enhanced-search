@@ -5,3 +5,4 @@
 build*
 dist*
 runner.spec*
+*.pyc
