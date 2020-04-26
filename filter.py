@@ -58,26 +58,16 @@ class Filter:
         filtered[:] = [mv for mv in self.data if not mv[start_yr_column] or int(mv[start_yr_column]) >= int(min_yr)]
         self.data = filtered
 
-        # Docs ---
-        docs_only = self.filters['DocumentariesOnly'].lower().strip()
-        genre_column = self.imdb_columns['Genres']
+        # Genre Filter ---
+        if self.filters['GenreFilter'].lower().strip() == 'yes':
+            genre_column = self.imdb_columns['Genres']
+            genres = self.imdb_filter_strings['Genres']
 
-        if docs_only == 'yes':
-            doc_string = self.imdb_filter_strings['DocumentaryString']
-
-            print('{} only'.format(doc_string))
-            filtered[:] = [mv for mv in self.data if doc_string in mv[genre_column]]
-            self.data = filtered
-
-        # Animated ---
-        anim_only = self.filters['AnimationOnly'].lower().strip()
-
-        if anim_only == 'yes':
-            anim_string = self.imdb_filter_strings['AnimationString']
-
-            print('{} only'.format(anim_string))
-            filtered[:] = [mv for mv in self.data if anim_string in mv[genre_column]]
-            self.data = filtered
+            for genre in genres.split(','):
+                g = genre.strip()
+                print('With a genre of {}'.format(g))
+                filtered[:] = [mv for mv in self.data if g in mv[genre_column]]
+                self.data = filtered
 
         # TV exclusion ---
         tv_results = self.filters['TVResults'].lower().strip()
@@ -100,14 +90,20 @@ class Filter:
             filtered[:] = [mv for mv in self.data if vg_string not in mv[title_type_column]]
             self.data = filtered
 
+        print('Got {} result(s)'.format(len(self.data)))
+
     def pick(self):
         title = self.imdb_columns['PrimaryTitle']
 
         print('Picking random film...')
-        random_movie = random.choice(self.data)
-        self.data.remove(random_movie)
-        imdb_id = random_movie[self.imdb_id]
-        title = random_movie[title]
-        url = '{}/{}'.format(self.browser_url, imdb_id)
-        print('Opening {} at {}...'.format(title, url))
-        webbrowser.open(url)
+        try:
+            random_movie = random.choice(self.data)
+            self.data.remove(random_movie)
+            imdb_id = random_movie[self.imdb_id]
+            title = random_movie[title]
+            url = '{}/{}'.format(self.browser_url, imdb_id)
+            print('Opening "{}" at {} ...'.format(title, url))
+            print('{} result(s) left'.format(len(self.data)))
+            webbrowser.open(url)
+        except IndexError:
+            print('No films found/left!')
