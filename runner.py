@@ -36,10 +36,11 @@ if not path.isfile(DATA_FILE_NAME) or SYS_DATA['Rebuild'] == 'yes':
 
     build.sanitize(merged)
 
+    print('Got {} records'.format(merged.size))
     build.write_file(merged, DATA_FILE_NAME)
 
 
-# Setup filter
+# Setup filters
 filter = filter.Filter(
     CONFIG_FILE,
     DATA_FILE_NAME,
@@ -48,7 +49,7 @@ filter = filter.Filter(
     SYS_DATA['BaseBrowserURL']
 )
 
-# Run filter
+# Run filters
 filter.run_filters()
 
 # Run app, pick a film for the user on request
