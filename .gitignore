@@ -6,3 +6,4 @@ build*
 dist*
 runner.spec*
 *.pyc
+notes.txt
