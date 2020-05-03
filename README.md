@@ -1,4 +1,6 @@
-# Custom Film Finder
+# Custom Film Finder using Python and IMDB data
+
+A tutorial for this repo is here - https://www.youtube.com/watch?v=f8gpAEMp7gg or here https://www.twitch.tv/videos/610312201
 
 Ever been on the hunt for a cool movie to watch but sick of browsing whatever is on Netflix? Want to learn how to hack data and write personalized queries custom built to your unique taste?
 
