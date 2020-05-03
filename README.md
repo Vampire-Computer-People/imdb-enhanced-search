@@ -11,5 +11,6 @@ Having Python 3 installed is a pre-requisite to this workshop. https://www.pytho
 0. Open your preferred command prompt (Mac users can use Terminal)
 0. Change directory using `cd` to the workspace
 0. Run `pip install -r requirements.txt`
+0. Edit `config.ini` in the `FILTERS` section or the `Genres` values
 0. Run `python runner.py`
 0. Follow the prompts
