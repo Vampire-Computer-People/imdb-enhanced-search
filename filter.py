@@ -90,6 +90,20 @@ class Filter:
             filtered[:] = [mv for mv in self.data if vg_string not in mv[title_type_column]]
             self.data = filtered
 
+        # Run time ---
+        runtime_minutes_columns = self.imdb_columns['RuntimeMinutes']
+        min_runtime_minutes = self.filters['MinRuntimeMinutes']
+        max_runtime_minutes = self.filters['MaxRuntimeMinutes']
+        print('Running at least {} minutes but no more than {}'.format(str(min_runtime_minutes), max_runtime_minutes))
+        
+        filtered[:] = [
+            mv for mv in self.data
+            if (int(mv[runtime_minutes_columns]) if mv[runtime_minutes_columns] != '' else 0)
+                >= int(min_runtime_minutes)
+            and (int(mv[runtime_minutes_columns]) if mv[runtime_minutes_columns] != '' else 0)
+                <= int(max_runtime_minutes)
+        ]
+
         print('Got {} result(s)'.format(len(self.data)))
 
     def pick(self):
